@@ -24,3 +24,10 @@
 - Implementations of the "steps" are in the `step_definitions` folder. Smaller step files that pertain to individual concepts are preferable (especially since they're so easy to make!).
 
 That's it for now!! This will grow as more tests get written, but it's pretty easy to pick up!
+
+### Some useful resources:
+
+- [Calabash github](https://github.com/calabash/calabash-android). Has a startup guide which I used and code links to some of their test "steps".
+- [Guide to automated testing](https://blog.testmunk.com/a-guide-to-automate-ui-testing-for-phonegap-cordova-apps/) (specifically the Querying Elements section) shows how to set up a console and query our app!
+  - More specifically, [this guide](https://blog.testmunk.com/how-to-test-webviews-calabash/) to querying webviews gets you off the ground with cordova/web views.
+- [Calabash api reference](https://github.com/calabash/calabash-android/blob/master/documentation/ruby_api.md)
