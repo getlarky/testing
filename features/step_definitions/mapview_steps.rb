@@ -12,6 +12,11 @@ Given /^Map view is loaded "([^\"]*)" perks count$/ do |includePerkCount|
     end
 end
 
+Given /^The map location filter should be set to the home base$/ do
+    homeBase = evaluate_javascript("SystemWebView", "return (app.config.branding.noPerkLocation.city)")[0]
+    wait_for_element_exists("SystemWebView css:'.k-input' textContent:'" + homeBase + "'")
+end
+
 Given /^I open a perk from the map view$/ do
     touch("SystemWebView css:'.map-marker'")
     touch("SystemWebView css:'.infoBox'")
@@ -32,4 +37,8 @@ end
 
 Given /^The no search results ul is shown$/ do
 	wait_for(:timeout=>8) {element_exists("SystemWebView css:'#mapNoSearchResultUL'")}
+end
+
+Given /^I clear the welcome message$/ do
+    touch("SystemWebView css:'.intro-cancel-button'")
 end
