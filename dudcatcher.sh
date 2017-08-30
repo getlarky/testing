@@ -59,13 +59,13 @@ mkdir -p tmp;
 cd tmp;
 unzip -q "$2";
 
-RESOURCE_PATH=/Users/evansnyder/Documents/dev/android/larky/assets/targets/$1;
+RESOURCE_PATH=$LARKY_PATH/assets/targets/$1;
 
 if cmp assets/www/images/larkylogo.png "$RESOURCE_PATH/www/images/larkylogo.png"
 then
-	echo "Map logo header is the correct target";
+	echo "MAP LOGO HEADER IS THE CORRECT TARGET";
 else
-	echo "Map logo header is not the correct target";
+	echo "MAP LOGO HEADER IS NOT THE CORRECT TARGET";
 fi
 cd ../;
 rm -rf tmp;

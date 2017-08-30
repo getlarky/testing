@@ -12,6 +12,25 @@
 1. If you see a message telling you to resign the file, just run the suggested command. It won't hurt!
 1. See the tests run!
 
+### The dudcatcher!!
+
+This is our first automated test. It verifies an android apk to make sure it's free of our most common mistakes when building. For more background, see the [relevant issue](https://github.com/getlarky/android/issues/1282).
+
+**Steps for setup:**
+
+1. Set up a `LARKY_HOME` environment variable in your ~/.bash_profile. It should point to the `android/larky` directory. If you see a message like `cmp: assets/www/images/larkylogo.png: No such file or directory`, it's because this variable is not set.
+1. Get bash >= 4.0. You can do this by running `brew update && brew install bash`
+1. Ensure you can run the command `aapt` in the terminal.
+1. Ensure you can run the above calabash test :point_up:
+
+**Steps to run:**
+
+1. Get a debug apk!
+1. Go to the `testing/` home directory
+1. Run `./dudcatcher.sh <target> <path_to_apk>`.
+
+You should see output regarding apptentive, branding, bggeo license, and signup/home base!!
+
 ### Dope ass console
 
 1. You can also run `calabash-android run <path_to_debug_apk>`. You should see an irb menu come up.
