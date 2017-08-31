@@ -5,6 +5,7 @@
 1. To see how this all began, read up on https://github.com/getlarky/android/issues/1257
 1. To get started running/writing tests, first install calabash. I prefer the ruby instructions on this [tutorial](https://bitbar.com/how-to-setup-and-get-started-with-calabash/), since it's less forceful than the cURL option.
 1. Run `calabash-android`. Ensure you see a help message saying something like: `Usage: calabash-android <command-name> [parameters] [options]`
+1. Clone this repo!
 1. Ensure you're in the home directory. You should see a folder called `features`.
 1. Build or obtain a debug apk larky app. Note the path of the app.
 1. Plug in your Android devices and make sure you can see it when you run the command `adb devices`. If it doesn't show up, switch your debugging mode to `Transfer Photos (PTP)`;
