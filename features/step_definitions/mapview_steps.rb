@@ -13,8 +13,9 @@ Given /^Map view is loaded "([^\"]*)" perks count$/ do |includePerkCount|
 end
 
 Given /^I open a perk from the map view$/ do
-    touch("SystemWebView css:'.map-marker'")
-    touch("SystemWebView css:'.infoBox'")
+    sleep(2)
+    tap_when_element_exists("SystemWebView css:'.map-marker'")
+    tap_when_element_exists("SystemWebView css:'.infoBox'")
 end
 
 Given /^I clear the search on the map$/ do
@@ -26,10 +27,14 @@ Given /^I search for "([^\"]*)" on the map$/ do |input|
 	touch("SystemWebView css:'#map-search-go-btn'")
 end
 
-Given /^I tap the map$/ do
+Given /^I tap the map to clear the keyboard$/ do
 	touch("SystemWebView css:'#mapcanvas'")
 end
 
 Given /^The no search results ul is shown$/ do
 	wait_for(:timeout=>8) {element_exists("SystemWebView css:'#mapNoSearchResultUL'")}
+end
+
+Given /^The map location filter should be set to "([^\"]*)"$/ do |location|
+    wait_for_element_exists("SystemWebView css:'.k-input' textContent:'" + location + "'")
 end

@@ -26,7 +26,7 @@ Given /^I press the larky button with id "([^\"]*)"$/ do |id|
     touch("SystemWebView css:'#" + id + "'")
 end
 
-Given /^I sign in with the zzz test account$/ do
+Given /^I sign in with the test account$/ do
     enter_text("SystemWebView css:'#email'", "normal@larky.com")
     enter_text("SystemWebView css:'#password'", "zzzzzz")
     tap_when_element_exists("SystemWebView css:'.button' textContent:'Sign in'")
@@ -36,4 +36,35 @@ Given /^The "([^\"]*)" button exists$/ do |text|
     wait_for(:timeout=>3){
         element_exists("SystemWebView css:'.button' textContent:'" + text + "'")
     }
+end
+
+Given /^I enter "([^\"]*)" on the search form on the page$/ do |searchText|
+    enter_text("SystemWebView css:'.searchForm'", searchText)
+end
+
+Given /^I select "([^\"]*)" from a filter$/ do |filterSelection|
+    touch("SystemWebView css:'.k-item' textContent:'" + filterSelection + "'")
+end
+
+Given /^I touch the "([^\"]*)" "([^\"]*)" filter$/ do |page, filterType|
+    pageId = ""
+    if page == "map"
+        pageId = "\#mapview"
+    elsif page == "list"
+        pageId = "\#allperks"
+    else
+        fail(msg="Invalid page for filter selections. Options are: list, map.")
+    end
+
+    filterSelector = ""
+
+    if filterType == "category"
+        filterSelector = ".categoryFilterUL"
+    elsif filterType == "location"
+        filterSelector = ".perkFilter:not(.categoryFilterUL)"
+    else
+        fail(msg="Invalid filter type for filter selections. Options are: list, map.")
+    end
+
+    touch("SystemWebView css:'" + pageId + " .footer-nav-container " + filterSelector + "'")
 end
