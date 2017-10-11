@@ -8,6 +8,7 @@ Feature: Limited Regression Test
     And I sign in with the test account
     Then Map view is loaded "with" perks count
 
+
   Scenario: As a logged in user I can search for an invalid term and clear it
     When I press the larky button with id "map-search-button"
     And I search for "lakjwroei" on the map
@@ -60,5 +61,13 @@ Feature: Limited Regression Test
     When I navigate to the "home" page from the header
     Then The "allperks" screen is present
 
+  Scenario: I can log out and sign up as a new user
+    When I choose the "Logout" option from the drawer
+    And I press the sign up button
+    And I sign up with a random larky account
+    Then Map view is loaded "with" perks count
+    When I clear the welcome message
+    Then The map location filter should be set to the home base
+    
   Scenario: As a logged in user I can add and remove a membership
     When I choose the "Add Memberships" option from the drawer

@@ -52,3 +52,12 @@ end
 Given /^I view the map as a list$/ do
     touch("SystemWebView css:'#map-view-as-list'")
 end
+
+Given /^I clear the welcome message$/ do
+    touch("SystemWebView css:'.intro-cancel-button'")
+end
+
+Given /^The map location filter should be set to the home base$/ do
+    homeBase = evaluate_javascript("SystemWebView", "return (app.config.branding.noPerkLocation.city)")[0]
+    wait_for_element_exists("SystemWebView css:'.k-input' textContent:'" + homeBase + "'")
+end

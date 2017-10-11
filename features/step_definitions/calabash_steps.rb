@@ -26,12 +26,6 @@ Given /^I press the larky button with id "([^\"]*)"$/ do |id|
     touch("SystemWebView css:'#" + id + "'")
 end
 
-Given /^I sign in with the test account$/ do
-    enter_text("SystemWebView css:'#email'", "normal@larky.com")
-    enter_text("SystemWebView css:'#password'", "zzzzzz")
-    tap_when_element_exists("SystemWebView css:'.button' textContent:'Sign in'")
-end
-
 Given /^The "([^\"]*)" button exists$/ do |text|
     wait_for(:timeout=>3){
         element_exists("SystemWebView css:'.button' textContent:'" + text + "'")

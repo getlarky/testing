@@ -10,11 +10,29 @@ Given /^I choose the "([^\"]*)" option from the drawer$/ do |drawerOption|
 		"My Memberships" => "click: onMymembershipClick",
 		"New Perks" => "click: onNoticenterClick"
 	}
-	if drawerOptions[drawerOption].nil?
-		fail(msg="Invalid drawer option")
+	settingsOptions = {
+		"Alert Preferences" => "click: onAlertPreferencesClick",
+		"Profile" => "click: onEditProfileClick",
+		"Support" => "click: onSupportClick",
+		"About" => "click: onAboutClick",
+		"Logout" => "click: onLogoutClick"
+	}
+	openSettings = false
+
+	drawerEvent = drawerOptions[drawerOption]
+	if drawerEvent.nil?
+		drawerEvent = settingsOptions[drawerOption]
+		if drawerEvent.nil?
+			fail(msg="Invalid drawer option")
+		else
+			openSettings = true
+		end
 	end
 	touch("SystemWebview css:'[href=\"#my-drawer\"]'")
-	touch("SystemWebview css:'[data-bind=\"events:{" + drawerOptions[drawerOption] + "}\"]'")
+	if openSettings
+		touch("SystemWebView css:'.drawer-panelbar'")
+	end
+	touch("SystemWebview css:'[data-bind=\"events:{" + drawerEvent + "}\"]'")
 end
 
 Given /^I navigate to the "([^\"]*)" page from the header$/ do |page|
