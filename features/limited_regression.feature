@@ -1,4 +1,4 @@
-Feature: Login feature
+Feature: Limited Regression Test
 
   @restart
   Scenario: As a valid user I can log into my app
@@ -8,15 +8,6 @@ Feature: Login feature
     And I sign in with the test account
     Then Map view is loaded "with" perks count
 
-  Scenario: As a logged in user I can view perks in many locations
-    When I touch the "map" "location" filter
-    And I select "Another location" from a filter
-    And I enter "Ypsi" on the search form on the page
-    When I select the first location from google autocomplete
-    And Map view is loaded "with" perks count
-    Then There should be a "map" filter set to "Ypsilanti"
-
-    
   Scenario: As a logged in user I can search for an invalid term and clear it
     When I press the larky button with id "map-search-button"
     And I search for "lakjwroei" on the map
@@ -25,7 +16,7 @@ Feature: Login feature
     When I press the larky button with id "map-search-button"
     And I clear the search on the map
     And Map view is loaded "with" perks count
-  
+
   Scenario: As a logged in user I can redeem a perk
     When I tap the map to clear the keyboard
     And I open a perk from the map view
@@ -36,7 +27,15 @@ Feature: Login feature
     Then I should see the correct redemption overlay
     And I should see the correct redemption question
     And I press the back button in the app
-  
+
+  Scenario: As a logged in user I can view perks in many locations
+    When I touch the "map" "location" filter
+    And I select "Another location" from a filter
+    And I enter "Ypsi" on the search form on the page
+    When I select the first location from google autocomplete
+    And Map view is loaded "with" perks count
+    Then There should be a "map" filter set to "Ypsilanti"
+    
   Scenario: As a logged in user my filter choices on the map view are persisted on the list view
     When I touch the "map" "category" filter
     And I select "Apparel" from a filter
@@ -47,7 +46,19 @@ Feature: Login feature
     And I view the map as a list
     Then There should be a "list" filter set to "Ypsilanti"
     And There should be a "list" filter set to "Apparel"
-    And The "list" search term should be set to "hi"
+    And The "list" search term should be set to "hi"    
+
+  Scenario: The new perks page should be working correctly
+    When I navigate to the "new perks" page from the header
+    And The new perks page has loaded
+    Then The number of new perks should match the count in the header
+    When I click a new perk
+    And The perk detail page has loaded
+    Then The new perks count should decrease in the header
+
+  Scenario: As a logged in user my home choice is remembered
+    When I navigate to the "home" page from the header
+    Then The "allperks" screen is present
 
   Scenario: As a logged in user I can add and remove a membership
     When I choose the "Add Memberships" option from the drawer

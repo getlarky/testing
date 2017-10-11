@@ -27,3 +27,9 @@ Given /^I should see the correct redemption question$/ do
 
     end
 end
+
+Given /^The perk detail page has loaded$/ do
+    wait_for(:timeout=>8){
+        query("SystemWebView css:'#perkdetail .product'").size > 0
+    }
+end

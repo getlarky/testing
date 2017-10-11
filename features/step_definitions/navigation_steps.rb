@@ -16,3 +16,7 @@ Given /^I choose the "([^\"]*)" option from the drawer$/ do |drawerOption|
 	touch("SystemWebview css:'[href=\"#my-drawer\"]'")
 	touch("SystemWebview css:'[data-bind=\"events:{" + drawerOptions[drawerOption] + "}\"]'")
 end
+
+Given /^I navigate to the "([^\"]*)" page from the header$/ do |page|
+ 	touch("SystemWebView css:'.inline-block' textContent:'" + page.tr(" ", "") + "'")
+end 
