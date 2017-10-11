@@ -9,6 +9,8 @@ Given /^Map view is loaded "([^\"]*)" perks count$/ do |includePerkCount|
     if includePerkCount != "without"
 	    wait_for_element_exists('SystemWebView css:"#perkscount"')
 	    wait_for(:timeout=>5){element_does_not_exist('SystemWebView css:"#perkscount"')}
+    else
+        sleep(2)
     end
 end
 
@@ -35,6 +37,18 @@ Given /^The no search results ul is shown$/ do
 	wait_for(:timeout=>8) {element_exists("SystemWebView css:'#mapNoSearchResultUL'")}
 end
 
-Given /^The map location filter should be set to "([^\"]*)"$/ do |location|
-    wait_for_element_exists("SystemWebView css:'.k-input' textContent:'" + location + "'")
+Given /^There should be a "([^\"]*)" filter set to "([^\"]*)"$/ do |page, filterContent|
+    if page == "map"
+        pageId = "\#mapview"
+    elsif page == "list"
+        pageId = "\#allperks"
+    else
+        fail(msg="Invalid page for filter selections. Options are: list, map.")
+    end
+
+    wait_for_element_exists("SystemWebView css:'" + pageId + " .k-input' textContent:'" + filterContent + "'")
+end
+
+Given /^I view the map as a list$/ do
+    touch("SystemWebView css:'#map-view-as-list'")
 end

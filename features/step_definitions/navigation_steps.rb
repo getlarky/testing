@@ -3,6 +3,7 @@ require 'calabash-android/calabash_steps'
 Given /^I press the back button in the app$/ do
 	touch('SystemWebView css:"a[data-role=backbutton]"')
 end
+
 Given /^I choose the "([^\"]*)" option from the drawer$/ do |drawerOption|
 	drawerOptions = {
 		"Add Memberships" => "click: onAddMembershipsClick",

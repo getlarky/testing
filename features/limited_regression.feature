@@ -14,7 +14,8 @@ Feature: Login feature
     And I enter "Ypsi" on the search form on the page
     When I select the first location from google autocomplete
     And Map view is loaded "with" perks count
-    Then The map location filter should be set to "Ypsilanti"
+    Then There should be a "map" filter set to  "Ypsilanti"
+
     
   Scenario: As a logged in user I can search for an invalid term and clear it
     When I press the larky button with id "map-search-button"
@@ -36,6 +37,17 @@ Feature: Login feature
     And I should see the correct redemption question
     And I press the back button in the app
   
+  Scenario: As a logged in user my filter choices on the map view are persisted on the list view
+    When I touch the "map" "category" filter
+    And I select "Apparel" from a filter
+    And Map view is loaded "without" perks count
+    And I press the larky button with id "map-search-button"
+    And I search for "hi" on the map
+    And Map view is loaded "without" perks count
+    And I view the map as a list
+    Then There should be a "list" filter set to "Ypsilanti"
+    And There should be a "list" filter set to "Apparel"
+    And The "list" search term should be set to "hi"
 
   Scenario: As a logged in user I can add and remove a membership
     When I choose the "Add Memberships" option from the drawer
