@@ -14,7 +14,7 @@ Feature: Login feature
     And I enter "Ypsi" on the search form on the page
     When I select the first location from google autocomplete
     And Map view is loaded "with" perks count
-    Then There should be a "map" filter set to  "Ypsilanti"
+    Then There should be a "map" filter set to "Ypsilanti"
 
     
   Scenario: As a logged in user I can search for an invalid term and clear it
