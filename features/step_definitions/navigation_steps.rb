@@ -30,6 +30,7 @@ Given /^I choose the "([^\"]*)" option from the drawer$/ do |drawerOption|
 	end
 	touch("SystemWebview css:'[href=\"#my-drawer\"]'")
 	if openSettings
+		sleep(1)
 		touch("SystemWebView css:'.drawer-panelbar'")
 	end
 	touch("SystemWebview css:'[data-bind=\"events:{" + drawerEvent + "}\"]'")

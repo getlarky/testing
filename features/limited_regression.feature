@@ -17,9 +17,9 @@ Feature: Limited Regression Test
     When I press the larky button with id "map-search-button"
     And I clear the search on the map
     And Map view is loaded "with" perks count
+    When I tap the map to clear the keyboard
 
   Scenario: As a logged in user I can redeem a perk
-    When I tap the map to clear the keyboard
     And I open a perk from the map view
     And The "perkdetail" screen is present
     Then The "Get It Now" button exists
@@ -32,10 +32,10 @@ Feature: Limited Regression Test
   Scenario: As a logged in user I can view perks in many locations
     When I touch the "map" "location" filter
     And I select "Another location" from a filter
-    And I enter "Ypsi" on the search form on the page
+    And I enter "Rale" on the search form on the page
     When I select the first location from google autocomplete
     And Map view is loaded "with" perks count
-    Then There should be a "map" filter set to "Ypsilanti"
+    Then There should be a "map" filter set to "Raleigh"
     
   Scenario: As a logged in user my filter choices on the map view are persisted on the list view
     When I touch the "map" "category" filter
@@ -45,7 +45,7 @@ Feature: Limited Regression Test
     And I search for "hi" on the map
     And Map view is loaded "without" perks count
     And I view the map as a list
-    Then There should be a "list" filter set to "Ypsilanti"
+    Then There should be a "list" filter set to "Raleigh"
     And There should be a "list" filter set to "Apparel"
     And The "list" search term should be set to "hi"    
 
@@ -62,12 +62,22 @@ Feature: Limited Regression Test
     Then The "allperks" screen is present
 
   Scenario: I can log out and sign up as a new user
-    When I choose the "Logout" option from the drawer
+    When The loading screen is gone
+    And I choose the "Logout" option from the drawer
     And I press the sign up button
     And I sign up with a random larky account
     Then Map view is loaded "with" perks count
     When I clear the welcome message
     Then The map location filter should be set to the home base
-    
+
   Scenario: As a logged in user I can add and remove a membership
-    When I choose the "Add Memberships" option from the drawer
+    When I determine if my app has memberships or not
+    And I choose the "Add Memberships" option from the drawer
+    And I choose to search by name
+    And I enter "Alumn" on the search form on the page
+    And I tap the first membership on the search page
+    And The loading screen is gone
+    Then I "should" be a member of the first organization
+    When I tap the first membership on the search page
+    And The loading screen is gone
+    Then I "should not" be a member of the first organization

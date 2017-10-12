@@ -79,3 +79,8 @@ Given /^I touch the "([^\"]*)" "([^\"]*)" filter$/ do |page, filterType|
 
     touch("SystemWebView css:'" + pageId + " .footer-nav-container " + filterSelector + "'")
 end
+
+Given /^The loading screen is gone$/ do
+   wait_for_element_exists("SystemWebView css:'.km-loader'") 
+   wait_for_element_does_not_exist("SystemWebView css:'.km-loader'") 
+end
