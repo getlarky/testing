@@ -1,5 +1,6 @@
 require 'calabash-android/calabash_steps'
 signup_redirect = true
+expected_perks_available = 0
 
 Given /^I check whether or not my app has an auto\-added membership$/ do
     signup_redirect = (evaluate_javascript("SystemWebView", "return (app.config.branding.addMemberships)")[0] != "null")
@@ -94,3 +95,20 @@ Given /^I clear the help overlay$/ do
     touch("SystemWebView css:'#mapview .infoOverlay .intro-cancel-button'")
     sleep(1)
 end
+
+Given /^I tap a group of perks with a number$/ do
+    perks_available = query("SystemWebView css:'.map-marker'").length
+    perks_in_group = query("SystemWebView css:'.marker-cluster-config'")[0]["textContent"].to_i
+    expected_perks_available = perks_available + perks_in_group
+    touch("SystemWebView css:'.marker-cluster-config'")
+end
+Given /^There should be that many more icons visible$/ do 
+    perks_available_new = query("SystemWebView css:'.map-marker'").length
+    if perks_available_new != expected_perks_available
+        fail(msg="Tapping on the group did not make the correct number of perks available. Expected " +
+            expected_perks_available + ", but had " + perks_available_new + " perks available")
+    end
+end
+
+
+

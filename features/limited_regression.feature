@@ -13,16 +13,13 @@ Feature: Limited Regression Test
     Then I should see the help overlay
     When I clear the help overlay
 
-  Scenario: As a logged in user I can search for an invalid term and clear it
-    When I press the larky button with id "map-search-button"
-    And I search for "lakjwroei" on the map
-    And Map view is loaded "without" perks count
-    Then The no search results ul is shown
-    When I press the larky button with id "map-search-button"
-    And I clear the search on the map
+  Scenario: As a logged in user I should be able to view all my perks on a map and expand them
+    When I touch the "map" "location" filter
+    And I select "Everywhere" from a filter
     Then Map view is loaded "with" perks count
-    When I tap the map to clear the keyboard
-
+    When I tap a group of perks with a number
+    Then There should be that many more icons visible
+    
   Scenario: As a logged in user I should be able to adjust my alert preferences
     When I navigate to the "adjust alerts" page from the header
     And The loading screen is gone
@@ -32,6 +29,17 @@ Feature: Limited Regression Test
     When I tap the first alert category
     And The loading screen is gone
     Then My blacklist preference for the first alert category should toggle
+
+
+  Scenario: As a logged in user I can search for an invalid term and clear it
+    When I press the larky button with id "map-search-button"
+    And I search for "lakjwroei" on the map
+    And Map view is loaded "without" perks count
+    Then The no search results ul is shown
+    When I press the larky button with id "map-search-button"
+    And I clear the search on the map
+    Then Map view is loaded "with" perks count
+    When I tap the map to clear the keyboard
 
   Scenario: As a logged in user I can redeem a perk
     When I open a perk from the map view
@@ -44,7 +52,7 @@ Feature: Limited Regression Test
     And I should see the correct redemption question
     And I press the back button in the app
 
-  Scenario: As a logged in user I can view perks in many locations
+  Scenario: As a logged in user I can view perks in another locations
     When I touch the "map" "location" filter
     And I select "Another location" from a filter
     And I enter "Rale" on the search form on the page
