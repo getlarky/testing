@@ -1,17 +1,27 @@
 require 'calabash-android/calabash_steps'
+signup_redirect = true
+
+Given /^I check whether or not my app has an auto\-added membership$/ do
+    signup_redirect = (evaluate_javascript("SystemWebView", "return (app.config.branding.addMemberships)")[0] != "null")
+end
 
 Given /^Map view is loaded "([^\"]*)" perks count$/ do |includePerkCount|
     # wait_for_element_exists("SystemWebView css:'.km-loader'")
     # TODO: something that c/b scaled to other pages/that makes more sense?
-    wait_for(:timeout=>30){
-    	(query("SystemWebView css:'.map-marker-icon'").size > 0 ) or element_exists("SystemWebView css:'#mapNoSearchResultUL'")
-    }
-    if includePerkCount != "without"
-	    wait_for_element_exists('SystemWebView css:"#perkscount"')
-	    wait_for(:timeout=>5){element_does_not_exist('SystemWebView css:"#perkscount"')}
+    if signup_redirect
+        wait_for(:timeout=>30){
+        	(query("SystemWebView css:'.map-marker-icon'").size > 0 ) or element_exists("SystemWebView css:'#mapNoSearchResultUL'")
+        }
+        if includePerkCount != "without"
+    	    wait_for_element_exists("SystemWebView css:'#perkscount'")
+    	    wait_for(:timeout=>5){element_does_not_exist("SystemWebView css:'#perkscount'")}
+        else
+            sleep(2)
+        end
     else
-        sleep(2)
+        print "Your app doesn't redirect on signup. Map view won't load"
     end
+
 end
 
 Given /^I open a perk from the map view$/ do
@@ -54,10 +64,33 @@ Given /^I view the map as a list$/ do
 end
 
 Given /^I clear the welcome message$/ do
-    touch("SystemWebView css:'.intro-cancel-button'")
+    if signup_redirect
+        touch("SystemWebView css:'.intro-cancel-button'")
+    else
+        print "Your app doesn't redirect on signup. Map view won't load"
+    end
 end
 
 Given /^The map location filter should be set to the home base$/ do
-    homeBase = evaluate_javascript("SystemWebView", "return (app.config.branding.noPerkLocation.city)")[0]
-    wait_for_element_exists("SystemWebView css:'.k-input' textContent:'" + homeBase + "'")
+    if signup_redirect
+        homeBase = evaluate_javascript("SystemWebView", "return (app.config.branding.noPerkLocation.city)")[0]
+        wait_for_element_exists("SystemWebView css:'.k-input' textContent:'" + homeBase + "'")
+    else
+        print "Your app doesn't redirect on signup. Map view won't load"
+    end
+    # Sign up flow ends here.
+    signup_redirect = false
+end
+
+Given /^I tap the question mark icon$/ do
+    touch("SystemWebView css:'#mapview .helpIcon'")
+end
+
+Given /^I should see the help overlay$/ do
+    wait_for_element_exists("SystemWebView css:'#mapview .infoOverlay'")
+end
+
+Given /^I clear the help overlay$/ do 
+    touch("SystemWebView css:'#mapview .infoOverlay .intro-cancel-button'")
+    sleep(1)
 end

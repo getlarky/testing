@@ -8,6 +8,10 @@ Feature: Limited Regression Test
     And I sign in with the test account
     Then Map view is loaded "with" perks count
 
+  Scenario: As a logged in user I can use the help overlay
+    When I tap the question mark icon
+    Then I should see the help overlay
+    When I clear the help overlay
 
   Scenario: As a logged in user I can search for an invalid term and clear it
     When I press the larky button with id "map-search-button"
@@ -16,11 +20,22 @@ Feature: Limited Regression Test
     Then The no search results ul is shown
     When I press the larky button with id "map-search-button"
     And I clear the search on the map
-    And Map view is loaded "with" perks count
+    Then Map view is loaded "with" perks count
     When I tap the map to clear the keyboard
 
+  Scenario: As a logged in user I should be able to adjust my alert preferences
+    When I navigate to the "adjust alerts" page from the header
+    And The loading screen is gone
+    And I tap the first alert category
+    And The loading screen is gone
+    Then My blacklist preference for the first alert category should toggle
+    When I tap the first alert category
+    And The loading screen is gone
+    Then My blacklist preference for the first alert category should toggle
+
   Scenario: As a logged in user I can redeem a perk
-    And I open a perk from the map view
+    When I open a perk from the map view
+    And The loading screen is gone
     And The "perkdetail" screen is present
     Then The "Get It Now" button exists
     When I press the larky "Get It Now" button
@@ -54,27 +69,32 @@ Feature: Limited Regression Test
     And The new perks page has loaded
     Then The number of new perks should match the count in the header
     When I click a new perk
+    And The loading screen is gone
     And The perk detail page has loaded
     Then The new perks count should decrease in the header
+    When I choose the "New Perks" option from the drawer
+    Then The new perks page has loaded
 
   Scenario: As a logged in user my home choice is remembered
     When I navigate to the "home" page from the header
     Then The "allperks" screen is present
+    And I view the list as a map
 
   Scenario: I can log out and sign up as a new user
     When The loading screen is gone
     And I choose the "Logout" option from the drawer
     And I press the sign up button
     And I sign up with a random larky account
+    And I check whether or not my app has an auto-added membership
     Then Map view is loaded "with" perks count
     When I clear the welcome message
     Then The map location filter should be set to the home base
 
   Scenario: As a logged in user I can add and remove a membership
     When I determine if my app has memberships or not
-    And I choose the "Add Memberships" option from the drawer
+    And I choose the Add Memberships option from the drawer if it exists
     And I choose to search by name
-    And I enter "Alumn" on the search form on the page
+    And I enter "Alumn" on the search form on the Add Membership page
     And I tap the first membership on the search page
     And The loading screen is gone
     Then I "should" be a member of the first organization

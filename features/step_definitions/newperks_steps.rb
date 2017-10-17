@@ -17,10 +17,7 @@ Given /^I click a new perk$/ do
 end
 
 Given /^The new perks count should decrease in the header$/ do
-	print new_perks_count
-	sleep(2)
 	new_new_perks_count = query("SystemWebView css:'.wrapped-icon.perks'")[0]["textContent"].to_i
-	print new_new_perks_count
 	if new_perks_count != new_new_perks_count + 1
 		fail(msg="Tapping a new perk did not decrease new perks count. Old count: " + new_perks_count.to_s +
 			". New count: " + new_new_perks_count.to_s)

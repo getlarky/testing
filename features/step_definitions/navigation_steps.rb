@@ -39,3 +39,7 @@ end
 Given /^I navigate to the "([^\"]*)" page from the header$/ do |page|
  	touch("SystemWebView css:'.inline-block' textContent:'" + page.tr(" ", "") + "'")
 end 
+
+Given /^I view the list as a map$/ do
+    touch("SystemWebView css:'.list-view-as-map'")
+end

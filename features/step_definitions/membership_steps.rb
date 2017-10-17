@@ -4,6 +4,9 @@ other_memberships = false
 
 Given /^I determine if my app has memberships or not$/ do
 	other_memberships = (evaluate_javascript("SystemWebView", "return (app.config.branding.otherMemberships)")[0] == "yes")
+	if !other_memberships
+		print "This app doesn't have other memberships. Skipping membership steps."
+	end
 end
 
 Given /^I choose to search by name$/ do
@@ -27,4 +30,17 @@ Given /^I "([^\"]*)" be a member of the first organization$/ do |expectedStatus|
 			fail(msg="Your expected status was " + expectedStatus.to_s + ", but your actual status was " + membershipStatus.to_s)
 		end
 	end
+end
+
+Given /^I choose the Add Memberships option from the drawer if it exists$/ do
+	if other_memberships
+		touch("SystemWebview css:'[href=\"#my-drawer\"]'")
+		touch("SystemWebview css:'[data-bind=\"events:{click: onAddMembershipsClick}\"]'")
+	end
+end
+
+Given /^I enter "([^\"]*)" on the search form on the Add Membership page$/ do |searchText|
+    if other_memberships
+	    enter_text("SystemWebView css:'.searchForm'", searchText)
+    end
 end
