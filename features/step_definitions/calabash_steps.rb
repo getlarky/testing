@@ -84,3 +84,10 @@ Given /^The loading screen is gone$/ do
    wait_for_element_exists("SystemWebView css:'.km-loader'") 
    wait_for_element_does_not_exist("SystemWebView css:'.km-loader'") 
 end
+
+Given /^The app has received a local notification$/ do
+    target = evaluate_javascript("SystemWebView", "return (app.config.branding.brand)")[0]
+    if !`adb shell dumpsys notification | grep -B 1 tickerText`.include? target
+        fail(msg="The app has not received a local notification")
+    end
+end
