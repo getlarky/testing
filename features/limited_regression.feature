@@ -31,6 +31,7 @@ Feature: Limited Regression Test
     Then My blacklist preference for the first alert category should toggle
 
 
+
   Scenario: As a logged in user I can search for an invalid term and clear it
     When I press the larky button with id "map-search-button"
     And I search for "lakjwroei" on the map
@@ -87,9 +88,8 @@ Feature: Limited Regression Test
     When I navigate to the "home" page from the header
     Then The "allperks" screen is present
     And I view the list as a map
-
+    
   Scenario: I can log out and sign up as a new user
-    When The loading screen is gone
     And I choose the "Logout" option from the drawer
     And I press the sign up button
     And I sign up with a random larky account
