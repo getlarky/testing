@@ -1,5 +1,4 @@
 Feature: Limited Regression Test
-
   @restart
   Scenario: As a valid user I can log into my app
     When The "welcome" screen is present
@@ -116,6 +115,7 @@ Feature: Limited Regression Test
     Given I choose the "Logout" option from the drawer
     When I press the sign up button
     And I sign up with a random larky account
+    And The loading screen is gone
 
   Scenario: As a signed up user, my app redirects to home base
     Given I check whether or not my app has an auto-added membership
