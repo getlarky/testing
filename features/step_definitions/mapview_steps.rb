@@ -11,7 +11,8 @@ Given /^Map view is loaded "([^\"]*)" perks count$/ do |includePerkCount|
     # TODO: something that c/b scaled to other pages/that makes more sense?
     if signup_redirect
         wait_for(:timeout=>30){
-        	(query("SystemWebView css:'.map-marker-icon'").size > 0 ) or element_exists("SystemWebView css:'#mapNoSearchResultUL'")
+        	(query("SystemWebView css:'.map-marker-icon'").size > 0 ) or
+            (query("SystemWebView css:'.marker-cluster-config'").size > 0) or element_exists("SystemWebView css:'#mapNoSearchResultUL'")
         }
         if includePerkCount != "without"
     	    wait_for_element_exists("SystemWebView css:'#perkscount'")

@@ -23,13 +23,23 @@ Given /^I should see the correct redemption question$/ do
         if uiredemptionMessage != redemptionMessage
             fail(msg="Redemption message not properly displayed")
         end
-        touch("button")
-
     end
+end
+
+Given /^I touch a redemption button$/ do
+    touch("button")
 end
 
 Given /^The perk detail page has loaded$/ do
     wait_for(:timeout=>8){
         query("SystemWebView css:'#perkdetail .product'").size > 0
     }
+end
+
+Given /^I tap the location of the perk$/ do 
+    touch("SystemWebView css:'[data-bind=\"text: closestLocationText\"]'")
+end
+
+Given /^I click the online redemption url$/ do
+    touch("SystemWebView css:'#redeem a input'")
 end

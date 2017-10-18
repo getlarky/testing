@@ -12,24 +12,38 @@ Feature: Limited Regression Test
     When I tap the question mark icon
     Then I should see the help overlay
     When I clear the help overlay
-
+    
   Scenario: As a logged in user I should be able to view all my perks on a map and expand them
     When I touch the "map" "location" filter
     And I select "Everywhere" from a filter
     Then Map view is loaded "with" perks count
     When I tap a group of perks with a number
     Then There should be that many more icons visible
-    
-  Scenario: As a logged in user I should be able to adjust my alert preferences
-    When I navigate to the "adjust alerts" page from the header
-    And The loading screen is gone
-    And I tap the first alert category
-    And The loading screen is gone
-    Then My blacklist preference for the first alert category should toggle
-    When I tap the first alert category
-    And The loading screen is gone
-    Then My blacklist preference for the first alert category should toggle
 
+  Scenario: As a logged in user I can navigate to perk locations and websites in other apps
+    When I press the larky button with id "map-search-button"
+    And I search for "Online Location" on the map
+    Then Map view is loaded "with" perks count
+    When I tap a group of perks with a number
+    And I open a perk from the map view
+    And The loading screen is gone
+    And The "perkdetail" screen is present
+    And I tap the location of the perk
+    Then The "maps" app is now open
+    When I switch to the last app
+
+  Scenario: As a logged in user I can redeem a perk
+    Then The "Get It Now" button exists
+    When I press the larky "Get It Now" button
+    And I click the online redemption url
+    Then The "chrome" app is now open
+    When I switch to the last app
+    When I press the back button in the app
+    Then I should see the correct redemption overlay
+    And I should see the correct redemption question
+    When I touch a redemption button
+    And I press the back button in the app
+    
   Scenario: As a logged in user I can search for an invalid term and clear it
     When I press the larky button with id "map-search-button"
     And I search for "lakjwroei" on the map
@@ -40,16 +54,17 @@ Feature: Limited Regression Test
     Then Map view is loaded "with" perks count
     When I tap the map to clear the keyboard
 
-  Scenario: As a logged in user I can redeem a perk
-    When I open a perk from the map view
+  Scenario: As a logged in user I should be able to adjust my alert preferences
+    When I navigate to the "adjust alerts" page from the header
     And The loading screen is gone
-    And The "perkdetail" screen is present
-    Then The "Get It Now" button exists
-    When I press the larky "Get It Now" button
-    When I press the back button in the app
-    Then I should see the correct redemption overlay
-    And I should see the correct redemption question
-    And I press the back button in the app
+    And I tap the first alert category
+    And The loading screen is gone
+    Then My blacklist preference for the first alert category should toggle
+    When I tap the first alert category
+    And The loading screen is gone
+    Then My blacklist preference for the first alert category should toggle
+    When I navigate to the "home" page from the header
+
 
   Scenario: As a logged in user I can view perks in another locations
     When I touch the "map" "location" filter
@@ -86,6 +101,7 @@ Feature: Limited Regression Test
     When I navigate to the "home" page from the header
     Then The "allperks" screen is present
     And I view the list as a map
+    And Map view is loaded "with" perks count
 
   Scenario: As a logged in user, I should receive a local notification
     Then The app has received a local notification
