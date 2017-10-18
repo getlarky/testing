@@ -7,7 +7,6 @@ Feature: Limited Regression Test
     And I sign in with the test account
     Then Map view is loaded "with" perks count
 
-
   Scenario: As a logged in user I can use the help overlay
     When I tap the question mark icon
     Then I should see the help overlay

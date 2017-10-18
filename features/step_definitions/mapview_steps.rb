@@ -91,6 +91,7 @@ Given /^I tap a group of perks with a number$/ do
     expected_perks_available = perks_available + perks_in_group
     touch("SystemWebView css:'.marker-cluster-config'")
 end
+
 Given /^There should be that many more icons visible$/ do 
     perks_available_new = query("SystemWebView css:'.map-marker'").length
     if perks_available_new != expected_perks_available

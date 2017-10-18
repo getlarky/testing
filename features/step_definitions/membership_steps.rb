@@ -31,6 +31,6 @@ Given /^I choose the Add Memberships option from the drawer if it exists$/ do
 end
 
 Given /^I enter "([^\"]*)" on the search form on the Add Membership page$/ do |searchText|
-	sleep(1)
+	wait_for_element_exists("SystemWebView css:'.searchForm'")
     enter_text("SystemWebView css:'.searchForm'", searchText)
 end
