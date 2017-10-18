@@ -28,6 +28,7 @@ Given /^I choose the "([^\"]*)" option from the drawer$/ do |drawerOption|
 			openSettings = true
 		end
 	end
+	wait_for_element_exists("SystemWebview css:'[href=\"#my-drawer\"]'")
 	touch("SystemWebview css:'[href=\"#my-drawer\"]'")
 	if openSettings
 		sleep(1)

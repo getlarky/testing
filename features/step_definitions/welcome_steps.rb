@@ -11,7 +11,6 @@ Given /^I sign up with a random larky account$/ do
     email_id, password_id, confirm_password_id = get_signup_ids()
     enter_text("SystemWebView css:" + email_id, randomId + "@larky.com")
     enter_text("SystemWebView css:" + password_id, "zzzzzz")
-    print "Confirm pw: " + confirm_password_id
     if confirm_password_id != nil
         enter_text("SystemWebView css:" + confirm_password_id, "zzzzzz")
     end

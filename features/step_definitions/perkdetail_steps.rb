@@ -1,4 +1,5 @@
 require 'calabash-android/calabash_steps'
+redemptionMessage = ""
 
 Given /^I should see the correct redemption overlay$/ do
     redemptionOverlayMessage = evaluate_javascript("SystemWebView", "return (app.perkdetailView.viewModel.perk.organization.redeem_overlay)")[0]
@@ -27,7 +28,11 @@ Given /^I should see the correct redemption question$/ do
 end
 
 Given /^I touch a redemption button$/ do
-    touch("button")
+    if redemptionMessage == "null"
+        print("No redemption question present. Skip redemption check.")
+    else
+        touch("button")
+    end
 end
 
 Given /^The perk detail page has loaded$/ do
