@@ -42,6 +42,7 @@ Given /^The perk detail page has loaded$/ do
 end
 
 Given /^I tap the location of the perk$/ do 
+    wait_for_element_exists("SystemWebView css:'[data-bind=\"text: closestLocationText\"]'")
     touch("SystemWebView css:'[data-bind=\"text: closestLocationText\"]'")
 end
 

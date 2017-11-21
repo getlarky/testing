@@ -37,6 +37,14 @@ Given /^I enter "([^\"]*)" on the search form on the page$/ do |searchText|
 end
 
 Given /^The loading screen is gone$/ do
-   wait_for_element_exists("SystemWebView css:'.km-loader'") 
-   wait_for_element_does_not_exist("SystemWebView css:'.km-loader'") 
+    begin
+        wait_for_element_exists("SystemWebView css:'.km-loader'") 
+    rescue Calabash::Android::WaitHelpers::WaitError => e
+        print "Loader must have triggered too fast, this is ok."
+    end
+    wait_for_element_does_not_exist("SystemWebView css:'.km-loader'") 
+end
+
+Given /^I wait one second$/ do
+    sleep(1)
 end

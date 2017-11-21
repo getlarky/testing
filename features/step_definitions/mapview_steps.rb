@@ -36,6 +36,7 @@ end
 
 Given /^I search for "([^\"]*)" on the map$/ do |input|
 	enter_text("SystemWebView css:'#map-search-input'", input)
+    sleep(0.5)
 	touch("SystemWebView css:'#map-search-go-btn'")
 end
 
@@ -45,18 +46,6 @@ end
 
 Given /^The no search results ul is shown$/ do
 	wait_for(:timeout=>8) {element_exists("SystemWebView css:'#mapNoSearchResultUL'")}
-end
-
-Given /^There should be a "([^\"]*)" filter set to "([^\"]*)"$/ do |page, filterContent|
-    if page == "map"
-        pageId = "\#mapview"
-    elsif page == "list"
-        pageId = "\#allperks"
-    else
-        fail(msg="Invalid page for filter selections. Options are: list, map.")
-    end
-
-    wait_for_element_exists("SystemWebView css:'" + pageId + " .k-input' textContent:'" + filterContent + "'")
 end
 
 Given /^I view the map as a list$/ do
@@ -100,5 +89,10 @@ Given /^There should be that many more icons visible$/ do
     end
 end
 
-
-
+Given /^The map view should be filtered by the location "([^\"]*)"$/ do |cityName|
+    mapCityFilter = evaluate_javascript("SystemWebView", "return (app.mapView.viewModel.selectedLocation.city)")[0]
+    print mapCityFilter + " VS " + cityName
+    if mapCityFilter.downcase != mapCityFilter.downcase
+        fail(msg="Map not filtered by city: " + cityName + ". It is currently filtered by: " + mapCityFilter)
+    end
+end

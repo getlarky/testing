@@ -43,3 +43,15 @@ Given /^I touch the "([^\"]*)" "([^\"]*)" filter$/ do |page, filterType|
 
     touch("SystemWebView css:'" + pageId + " .footer-nav-container " + filterSelector + "'")
 end
+
+Given /^There should be a "([^\"]*)" filter set to "([^\"]*)"$/ do |page, filterContent|
+    if page == "map"
+        pageId = "\#mapview"
+    elsif page == "list"
+        pageId = "\#allperks"
+    else
+        fail(msg="Invalid page for filter selections. Options are: list, map.")
+    end
+
+    wait_for_element_exists("SystemWebView css:'" + pageId + " .k-input' textContent:'" + filterContent + "'")
+end
